@@ -1,0 +1,498 @@
+---
+import { getImage } from "astro:assets";
+import appDark from "../assets/app-dark.png";
+import appLight from "../assets/app-light.png";
+
+const shotLight = await getImage({
+  src: appLight,
+  width: 1200,
+  quality: "high",
+});
+
+const shotDark = await getImage({
+  src: appDark,
+  width: 1200,
+  quality: "high",
+});
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      content="#f6f7fb"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#070a12"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <title>JSON Assistant — Fast JSON formatting and inspection for macOS</title>
+    <meta
+      name="description"
+      content="Paste any JSON payload, format instantly, search keys and values, and explore deeply nested structures with a beautiful two-pane workflow."
+    />
+
+    <meta property="og:title" content="JSON Assistant" />
+    <meta
+      property="og:description"
+      content="Fast JSON formatting and inspection for macOS."
+    />
+    <meta property="og:site_name" content="JSON Assistant" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/favicon.png"
+      sizes="32x32"
+    />
+
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia?.(
+            "(prefers-color-scheme: dark)",
+          )?.matches;
+          const theme = stored || (prefersDark ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav container" aria-label="Primary">
+        <a class="brand" href="#">
+          <img
+            src="/assets/logo.png"
+            width="28"
+            height="28"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="brand-name">JSON Assistant</span>
+        </a>
+
+        <div class="nav-links">
+          <a class="nav-link" href="#features">Features</a>
+          <a class="nav-link" href="#screenshots">Screenshots</a>
+          <a class="nav-link" href="#download">Download</a>
+        </div>
+
+        <div class="nav-actions">
+          <button
+            class="icon-button"
+            id="themeToggle"
+            type="button"
+            aria-label="Toggle theme"
+            aria-pressed="false"
+          >
+            <span class="icon" data-icon="sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"
+                  stroke-width="2"
+                />
+                <path
+                  d="M12 2v2m0 16v2M4 12H2m20 0h-2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+            <span class="icon" data-icon="moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M21 14.2A8.5 8.5 0 0 1 9.8 3 7 7 0 1 0 21 14.2Z"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </button>
+
+          <a
+            class="button button--primary"
+            href="https://apps.apple.com/ar/app/json-assistant/id6753915615?mt=12"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Download
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero container">
+        <div class="hero-copy">
+          <p class="eyebrow">macOS app</p>
+          <h1 class="headline">Inspect JSON in seconds.</h1>
+          <p class="lead">
+            Paste any payload, format instantly, search keys and values, and
+            explore deeply nested structures without losing your place.
+          </p>
+
+          <div class="cta-row">
+            <a
+              class="button button--primary"
+              href="https://apps.apple.com/ar/app/json-assistant/id6753915615?mt=12"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Download for macOS
+            </a>
+            <a
+              class="button button--secondary"
+              href="https://github.com/fgoni/json-assistant"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View on GitHub
+            </a>
+          </div>
+
+          <ul class="hero-points" aria-label="Highlights">
+            <li>Two‑pane workflow: raw editor + tree view</li>
+            <li>Saved JSON library for repeat requests</li>
+            <li>Search, collapse/expand, and keyboard shortcuts</li>
+          </ul>
+        </div>
+
+        <div class="hero-media">
+          <div class="shot" data-shot-wrap>
+            <div class="shot-chrome" aria-hidden="true">
+              <span class="dot dot--red"></span>
+              <span class="dot dot--yellow"></span>
+              <span class="dot dot--green"></span>
+            </div>
+
+            <div class="shot-body">
+              <img
+                class="shot-img"
+                data-shot
+                data-shot-light={shotLight.src}
+                data-shot-dark={shotDark.src}
+                width={shotLight.attributes.width}
+                height={shotLight.attributes.height}
+                alt="JSON Assistant showing a JSON editor on the left and a formatted tree view on the right."
+                decoding="async"
+                loading="eager"
+              />
+
+              <div class="shot-fallback" aria-hidden="true">
+                <div class="placeholder">
+                  <div class="placeholder-top"></div>
+                  <div class="placeholder-cols">
+                    <div class="placeholder-col"></div>
+                    <div class="placeholder-col"></div>
+                  </div>
+                  <div class="placeholder-label">
+                    Add `src/assets/app-light.png` and `src/assets/app-dark.png`
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trust">
+            <div class="trust-item">
+              <div class="trust-kicker">Privacy</div>
+              <div class="trust-text">
+                Runs locally. Your data stays on your Mac.
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-kicker">Fast</div>
+              <div class="trust-text">Built for quick debugging and iteration.</div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-kicker">Polished</div>
+              <div class="trust-text">
+                Light + dark mode, shortcuts, and search.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section container">
+        <div class="section-head">
+          <h2>Everything you need to tame JSON.</h2>
+          <p class="section-lead">
+            A focused tool for API debugging, webhook payloads, and everyday
+            copy/paste chaos.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z"
+                  stroke-width="2"
+                />
+                <path
+                  d="M8 8h8M8 12h8M8 16h5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <h3>Two-pane workflow</h3>
+            <p>
+              Paste or edit raw JSON on the left, then explore a clean tree view
+              on the right.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M7 7a3 3 0 0 1 3-3h9v13a3 3 0 0 1-3 3H7V7Z"
+                  stroke-width="2"
+                />
+                <path
+                  d="M5 7h8a3 3 0 0 1 3 3v10H8a3 3 0 0 1-3-3V7Z"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <h3>Saved JSON library</h3>
+            <p>
+              Keep frequently-used payloads handy—perfect for repetitive
+              debugging and webhooks.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M10 10a6 6 0 1 0 0 4"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M15 15l5 5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <h3>Search inside JSON</h3>
+            <p>
+              Find keys and values instantly in the formatted view, even inside
+              deeply nested structures.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M8 12h8M8 8h8M8 16h5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M4 6v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2Z"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <h3>Collapse &amp; expand</h3>
+            <p>
+              Quickly fold large payloads, expand what matters, and keep context
+              without endless scrolling.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M12 3 4 7v6c0 5 3.5 9.4 8 10 4.5-.6 8-5 8-10V7l-8-4Z"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9 12l2 2 4-4"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <h3>Offline by default</h3>
+            <p>
+              No accounts. No uploading. Work with sensitive data knowing it
+              stays local.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M4 14c2.5-3.5 5.5-5.5 8-6 2.7-.5 6.1.3 8 6-1.9 5.7-5.3 6.5-8 6-2.5-.5-5.5-2.5-8-6Z"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <h3>Looks great everywhere</h3>
+            <p>
+              Thoughtful typography, spacing, and colors—plus light and dark mode
+              that match macOS.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="screenshots" class="section container">
+        <div class="section-head">
+          <h2>Light mode, dark mode—both included.</h2>
+          <p class="section-lead">
+            Switch themes on this page to preview the app’s look and feel.
+          </p>
+        </div>
+
+        <div class="switcher" aria-label="Screenshot preview">
+          <div class="segmented" role="tablist" aria-label="Preview mode">
+            <button
+              class="segmented-btn"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              data-preview="auto"
+            >
+              Auto
+            </button>
+            <button
+              class="segmented-btn"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-preview="light"
+            >
+              Light
+            </button>
+            <button
+              class="segmented-btn"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-preview="dark"
+            >
+              Dark
+            </button>
+          </div>
+        </div>
+
+        <div class="shot shot--wide" data-shot-wrap data-shot-preview>
+          <div class="shot-chrome" aria-hidden="true">
+            <span class="dot dot--red"></span>
+            <span class="dot dot--yellow"></span>
+            <span class="dot dot--green"></span>
+          </div>
+
+          <div class="shot-body">
+            <img
+              class="shot-img"
+              data-shot
+              data-shot-light={shotLight.src}
+              data-shot-dark={shotDark.src}
+              width={shotLight.attributes.width}
+              height={shotLight.attributes.height}
+              alt="JSON Assistant screenshot preview."
+              decoding="async"
+              loading="lazy"
+            />
+
+            <div class="shot-fallback" aria-hidden="true">
+              <div class="placeholder">
+                <div class="placeholder-top"></div>
+                <div class="placeholder-cols">
+                  <div class="placeholder-col"></div>
+                  <div class="placeholder-col"></div>
+                </div>
+                <div class="placeholder-label">
+                  Add `src/assets/app-light.png` and `src/assets/app-dark.png`
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="download" class="section container">
+        <div class="download card card--cta">
+          <div>
+            <h2>Ready to make JSON less painful?</h2>
+            <p class="section-lead">
+              Download JSON Assistant for macOS, or browse the source on GitHub.
+            </p>
+          </div>
+          <div class="cta-row cta-row--tight">
+            <a
+              class="button button--primary"
+              href="https://apps.apple.com/ar/app/json-assistant/id6753915615?mt=12"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Download
+            </a>
+            <a
+              class="button button--secondary"
+              href="https://github.com/fgoni/json-assistant"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">JSON Assistant</span>
+          <span class="footer-muted">© <span id="year"></span></span>
+        </div>
+        <div class="footer-right">
+          <a class="footer-link" href="https://github.com/fgoni/json-assistant">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/script.js" defer></script>
+  </body>
+</html>
