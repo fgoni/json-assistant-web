@@ -103,7 +103,7 @@ html[data-theme="dark"] .site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding-block: 14px;
   gap: 16px;
 }
 
@@ -233,7 +233,7 @@ html[data-theme="light"] .icon[data-icon="moon"] {
   display: grid;
   grid-template-columns: 1fr;
   gap: 28px;
-  padding: 96px 0 56px;
+  padding-block: 96px 56px;
 }
 
 .eyebrow {
@@ -451,7 +451,7 @@ html[data-theme="dark"] .placeholder {
 .section {
   position: relative;
   isolation: isolate;
-  padding: 96px 0 96px;
+  padding-block: 96px;
   scroll-margin-top: 84px;
 }
 
@@ -638,7 +638,7 @@ html[data-theme="dark"] .footer-inner {
   .hero {
     grid-template-columns: 1.05fr 0.95fr;
     align-items: start;
-    padding: 120px 0 72px;
+    padding-block: 120px 72px;
   }
 
   .trust {
